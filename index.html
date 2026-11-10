@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Notizbuch</title>
+  <meta name="description" content="Klassisches Notizbuch zum Handschreiben mit dem Apple Pencil.">
+  <meta name="theme-color" content="#F4F0E6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Notizbuch">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/app.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <!-- Start screen -->
+  <section id="library" class="view" hidden>
+    <header class="libbar">
+      <h1>Notizbücher</h1>
+      <button id="new-notebook" class="btn primary">+ Neues Notizbuch</button>
+    </header>
+    <main class="shelf-wrap">
+      <div id="shelf" class="shelf"></div>
+      <div id="empty" class="empty" hidden>
+        <p>Noch kein Notizbuch.</p>
+        <p class="hint">Lege mit „+ Neues Notizbuch" dein erstes an.</p>
+      </div>
+      <p id="storage-note" class="storage-note"></p>
+    </main>
+  </section>
+
+  <!-- Editor -->
+  <section id="editor" class="view" hidden>
+    <header class="toolbar">
+      <button id="btn-back" class="icon-btn back" aria-label="Zurück zu den Notizbüchern"></button>
+      <span id="nb-title" class="nb-title"></span>
+      <div class="tool-groups">
+        <div id="tools" class="group" role="toolbar" aria-label="Werkzeuge">
+          <button class="icon-btn tool" data-tool="pencil" title="Bleistift" aria-label="Bleistift"></button>
+          <button class="icon-btn tool" data-tool="pen" title="Kugelschreiber" aria-label="Kugelschreiber"></button>
+          <button class="icon-btn tool" data-tool="eraser" title="Radierer" aria-label="Radierer"></button>
+        </div>
+        <div id="eraser-mode" class="group segmented" hidden>
+          <button data-mode="stroke">Strich</button>
+          <button data-mode="pixel">Pixel</button>
+        </div>
+        <div id="sizes" class="group" aria-label="Strichstärke"></div>
+        <div id="colors" class="group" aria-label="Farbe"></div>
+        <div class="group">
+          <button id="btn-undo" class="icon-btn" title="Rückgängig" aria-label="Rückgängig"></button>
+          <button id="btn-redo" class="icon-btn" title="Wiederholen" aria-label="Wiederholen"></button>
+        </div>
+      </div>
+    </header>
+
+    <div id="stage" class="stage">
+      <canvas id="cv-paper"></canvas>
+      <canvas id="cv-ink"></canvas>
+      <canvas id="cv-live"></canvas>
+    </div>
+
+    <nav class="pagebar" aria-label="Seiten">
+      <button id="btn-prev" class="icon-btn" aria-label="Vorherige Seite"></button>
+      <button id="page-label" class="page-label"></button>
+      <button id="btn-next" class="icon-btn" aria-label="Nächste Seite"></button>
+      <span class="sep"></span>
+      <button id="btn-pages" class="icon-btn" title="Seitenübersicht" aria-label="Seitenübersicht"></button>
+      <button id="btn-add" class="icon-btn" title="Seite hinzufügen" aria-label="Seite hinzufügen"></button>
+      <span class="sep"></span>
+      <button id="zoom-label" class="zoom-label" title="Auf Seitenbreite zurücksetzen">100 %</button>
+    </nav>
+
+    <div id="overview" class="overview" hidden>
+      <header class="ov-head">
+        <h2>Seitenübersicht</h2>
+        <button id="ov-close" class="icon-btn" aria-label="Schließen"></button>
+      </header>
+      <div id="ov-grid" class="ov-grid"></div>
+    </div>
+  </section>
+
+  <button id="update-toast" class="toast" hidden>Neue Version verfügbar – tippen zum Neuladen</button>
+</body>
+</html>
